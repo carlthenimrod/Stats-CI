@@ -27,6 +27,8 @@
 			$id = $this->input->get('id');
 
 			$this->db->delete('clubs', array('id' => $id)); 
+			$this->db->delete('events', array('home_id' => $id)); 
+			$this->db->delete('events', array('vist_id' => $id)); 
 		}
 
 		public function get_all(){

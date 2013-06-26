@@ -22,38 +22,38 @@
 	
 	<?php if($clubs) : ?>		
 
-		<table class="stats">
-			<tr>
-				<th>Pos</th>
-				<th class="left">Clubs</th>
-				<th class="extra">W</th>
-				<th class="extra">L</th>
-				<th class="extra">D</th>
-				<th>PTS</th>
-				<th class="extra">GF</th>
-				<th class="extra">GA</th>
-				<th class="extra">GD</th>
-				<th>Delete</th>
-			</tr>
+		<div class="stats">
+			<div class="stats-row-head">
+				<div>Pos</div>
+				<div class="left">Clubs</div>
+				<div class="extra">W</div>
+				<div class="extra">L</div>
+				<div class="extra">D</div>
+				<div>PTS</div>
+				<div class="extra">GF</div>
+				<div class="extra">GA</div>
+				<div class="extra">GD</div>
+				<div>Delete</div>
+			</div>
 
 			<?php foreach ($clubs as $club) : ?>
-				<tr id="<?php echo $club->id; ?>">
-					<td><?php echo $club->pos; ?></td>
-					<td class="left" id="club-name"><?php echo $club->name; ?></td>
-					<td><?php echo $club->w; ?></td>
-					<td><?php echo $club->l; ?></td>
-					<td><?php echo $club->d; ?></td>
-					<td><?php echo $club->pts; ?></td>
-					<td><?php echo $club->gf; ?></td>
-					<td><?php echo $club->ga; ?></td>
-					<td><?php echo $club->gd; ?></a></td>
-					<td class="admin-delete-team">
+				<div class="stats-row" id="<?php echo $club->id; ?>">
+					<div><?php echo $club->pos; ?></div>
+					<div class="left" id="club-name"><?php echo $club->name; ?></div>
+					<div><?php echo $club->w; ?></div>
+					<div><?php echo $club->l; ?></div>
+					<div><?php echo $club->d; ?></div>
+					<div><?php echo $club->pts; ?></div>
+					<div><?php echo $club->gf; ?></div>
+					<div><?php echo $club->ga; ?></div>
+					<div><?php echo $club->gd; ?></a></div>
+					<div class="admin-delete-team">
 						<a href="<?php echo base_url('clubs/delete'); ?>?id=<?php echo $club->id; ?>" title="Delete">x</a>
-					</td>
-			    </tr>
+					</div>
+			    </div>
 			<?php endforeach; ?>
 
-		</table><!-- .stats -->
+		</div><!-- .stats -->
 		
 		<div class="results">
 			<?php if($events) : ?>
@@ -62,34 +62,143 @@
 		</div><!--.results -->
 
 	<?php else : ?>
-		<table class="stats">
-			<tr>
-				<th class="left">Currently no clubs. Add some?</th>
-			</tr>
-		</table><!-- .stats -->
+		<div class="no-results">
+			Currently no clubs.
+		</div><!-- .row -->
 	<?php endif; ?>
 
-	<div class="admin-club">
+	<div class="admin-edit admin-club">
 		<form method="POST" action="<?php echo base_url('clubs/add'); ?>">
-			<label for="admin-add-club">Enter Name:</label>
+			<label for="admin-add-club">Enter Club Name:</label>
 
 			<input type="text" id="admin-add-club" name="club_name" />
 
 			<button name="add_club">Add Club</button>
 		</form>
-	</div><!-- .admin-club -->
+	</div><!-- .admin-edit -->
 
 	<br /><br />
 
-	<?php if($events) : ?>
-
+	<?php if($groups) : ?>
 		<h2>Schedule:</h2>
-
+		
 		<div class="weekly">
-			<div class="row">
-			</div><!-- .row -->
+			<?php foreach($groups as $group) : ?>
+
+				<div class="week">
+					<a href="<?php echo base_url('groups/delete'); ?>?id=<?php echo $group->id; ?>" title="Delete" class="admin-delete-group">x</a>
+					
+					<h3 id="<?php echo $group->id; ?>"><?php echo $group->name; ?></h3>
+					
+					<div class="info">
+						<?php
+							$results = find_group_id($events, $group->id);
+						?>
+
+						<?php if($results) : ?>
+							<?php foreach($results as $result) : ?>
+								<p><?php echo $result->date; ?></p>
+								<?php
+									$current_loc = false;
+								?>
+
+								<?php foreach($result->events as $event) : ?>
+									<?php 
+										if($current_loc !== $event->loc){
+
+											echo '<p>(' . $event->loc . ')</p>';
+
+											$current_loc = $event->loc;
+										} 
+									?>
+
+									<p class="event">
+										<span class="h-score"><?php echo $event->h_score; ?></span> - 
+										<span class="v-score"><?php echo $event->v_score; ?></span>
+										&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+										<span class="h-club"><?php echo $event->h_club; ?></span> - 
+										<span class="v-club"><?php echo $event->v_club; ?></span>
+										<span class="group-id"><?php echo $group->id; ?></span>
+										<span class="event-id"><?php echo $event->id; ?></span>
+										<span class="loc"><?php echo $event->loc; ?></span>
+										<span class="date"><?php echo $result->date; ?></span>
+										<span class="time"><?php echo $event->time; ?></span>
+									</p>
+								<?php endforeach; ?>
+
+							<?php endforeach; ?>
+						<?php else : ?>
+							<p>Currently no events have been planned.</p>
+						<?php endif; ?>
+
+						<div class="admin-event-ctn">
+							<div class="admin-event-add">+ Add New Event</div><!-- .admin-event-add -->
+
+							<div class="admin-event">
+								<form method="post" action="events/add">
+									<div class="admin-event-row-1">
+										<label for="admin-event-h-team">Home:</label>
+										<select id="admin-event-h-team" name="h_team">
+											<?php foreach($clubs as $club) : ?>
+												<option value="<?php echo $club->id; ?>" id="<?php echo $club->id; ?>"><?php echo $club->name; ?></option>
+											<?php endforeach; ?>
+										</select>
+
+										<label for="admin-event-v-team">Visitor:</label>
+										<select id="admin-event-v-team" name="v_team">
+											<?php foreach($clubs as $club) : ?>
+												<option value="<?php echo $club->id; ?>" id="<?php echo $club->id; ?>"><?php echo $club->name; ?></option>
+											<?php endforeach; ?>
+										</select>
+									</div><!-- .admin-event-row-1 -->
+
+									<div class="admin-event-row-2">
+										<label for="admin-event-h-score">Score:</label>
+										<input type="text" id="admin-event-h-score" name="h_score" />
+
+										<label for="admin-event-v-score">Score:</label>
+										<input type="text" id="admin-event-v-score" name="v_score" />
+									</div><!-- .admin-event-row-2 -->
+
+									<div class="admin-event-row-3">
+										<label for="admin-event-location">Location:</label>
+										<input type="text" id="admin-event-location" name="location" />
+									</div><!-- .admin-event-row-3 -->
+
+									<div class="admin-event-row-4">
+										<label for="admin-event-date">Date:</label>
+										<input type="text" id="admin-event-date" name="date" />
+
+										<label for="admin-event-time">Time:</label>
+										<input type="text" id="admin-event-time" name="time" />
+									</div><!-- .admin-event-row-4 -->
+
+									<input type="hidden" id="admin-event-group-id" name="group_id" value="<?php echo $group->id; ?>"/>
+									<input type="hidden" id="admin-event-event-id" name="event_id" value="0"/>
+
+									<button>Save</button>
+								</form>
+							</div><!-- .admin-event -->
+						</div><!-- .admin-event-ctn -->
+					</div><!-- .info -->
+				</div><!-- .week -->
+			<?php endforeach; ?>
 		</div><!-- .weekly -->
 
+	<?php else : ?>
+		<div class="no-results">
+			Currently no groups.
+		</div><!-- .row -->
 	<?php endif; ?>
+
+	<div class="admin-edit admin-group">
+		<form method="POST" action="<?php echo base_url('groups/add'); ?>">
+			<label for="admin-add-group">Enter Group Name:</label>
+
+			<input type="text" id="admin-add-group" name="group_name" />
+
+			<button name="add_group">Add Group</button>
+		</form>
+	</div><!-- .admin-edit -->
 </body>
 </html>

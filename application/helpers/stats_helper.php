@@ -139,38 +139,135 @@
 		return ($a->pts > $b->pts) ? -1 : 1;
 	};
 
-	function build_json($clubs){
+	function sort_events($clubs, $events){
 
-		$i = 0;
-		$len = count($clubs);
+		$arr = array();
 
-		$json = '{ "clubs": [ ';
+		if(!$events) return false;
 
-		foreach($clubs as $club) :
+		foreach($events as $event) :
 
-			$json .= '{
+			$obj = new stdClass();
+			$obj->id = $event->id;
+			$obj->group_id = $event->group_id;
+			$obj->h_club = find_club($event->home_id, $clubs);
+			$obj->v_club = find_club($event->vist_id, $clubs);
+			$obj->h_score = $event->home_s;
+			$obj->v_score = $event->vist_s;
+			$obj->loc = $event->loc;
+			$obj->date = $event->date;
+			$obj->time = $event->time;
 
-				"id": '.$club->id.',
-				"name": "'.$club->name.'",
-				"w": '.$club->w.',
-				"l": '.$club->l.',
-				"d": '.$club->d.',
-				"pts": '.$club->pts.',
-				"gf": '.$club->gf.',
-				"ga": '.$club->ga.',
-				"gd": '.$club->gd.'
-			}';
-
-			if ($i != $len - 1) {
-				
-				$json .= ",";
-			}
-
-			$i++;
+			array_push($arr, $obj);
 
 		endforeach;
 
-		$json .= ' ] }';
+		usort($arr, "sort_date");
+		$arr = sort_like_date($arr);
 
-		return $json;
-	}
+		return $arr;
+	};
+
+	function sort_date($a, $b){
+		if($a->group_id != $b->group_id){
+
+			return 0;
+		}
+
+		return $a->date == $b->date ? 0 : ( $a->date > $b->date ) ? 1 : -1;
+	};
+
+	function sort_loc($a, $b){
+		return $a->loc == $b->loc ? 0 : ( $a->loc > $b->loc ) ? 1 : -1;
+	};
+
+	function sort_like_date($arr){
+
+		$new_arr = array();
+		$date = false;
+		$count = 0;
+
+		foreach($arr as $obj) :
+
+			if($obj->date != $date) :
+
+				if($date) : 
+					usort($date_obj->events, "sort_loc");
+					array_push($new_arr, $date_obj);
+				endif;
+
+				$date = $obj->date;
+
+				$date_obj = new stdClass();
+				$date_obj->date = $date;
+				$date_obj->group_id = $obj->group_id;
+				$date_obj->events = array();
+
+			endif;
+
+			$sub_obj = new stdClass();
+
+			$sub_obj->id = $obj->id;
+			$sub_obj->h_club = $obj->h_club;
+			$sub_obj->v_club = $obj->v_club;
+			$sub_obj->h_score = $obj->h_score;
+			$sub_obj->v_score = $obj->v_score;
+			$sub_obj->loc = $obj->loc;
+			$sub_obj->time = $obj->time;
+
+			array_push($date_obj->events, $sub_obj);
+
+			if(count($arr) == $count + 1) :
+
+				usort($date_obj->events, "sort_loc");
+				array_push($new_arr, $date_obj);
+
+			else :
+
+				++$count;
+
+			endif;
+
+		endforeach;
+
+		return $new_arr;
+	};
+
+	function find_club($club_id, $clubs){
+
+		foreach($clubs as $club) :
+
+			if($club->id == $club_id) return $club->name;
+
+		endforeach;
+
+		return false;
+	};
+
+	function find_group_id($events, $group_id){
+
+		$results = 0;
+		$arr = array();
+
+		if(!$events) return false;
+
+		foreach($events as $event) :
+
+			if($event->group_id == $group_id){
+
+				array_push($arr, $event);
+
+				++$results;
+			}
+
+		endforeach;
+
+		if($results > 0){
+
+			return $arr;
+		}
+		else{
+
+			return false;
+		}
+	};

@@ -1,16 +1,16 @@
 <?php
-	class clubs extends CI_Controller{
+	class groups extends CI_Controller{
 
 		public function add(){
 
 			$this->load->helper('form');
 			$this->load->library('form_validation');	
 
-			$this->form_validation->set_rules('club_name', 'Club name', 'required|max_length[50]');
+			$this->form_validation->set_rules('group_name', 'Group name', 'required|max_length[50]');
 
 			if ($this->form_validation->run()){
 
-				$this->club->add();
+				$this->group->add();
 
 				redirect();
 			}
@@ -19,7 +19,7 @@
 				$this->session->set_flashdata('errors', validation_errors());
 
 				redirect();
-			}		
+			}	
 		}
 
 		public function edit(){
@@ -27,11 +27,11 @@
 			$this->load->helper('form');
 			$this->load->library('form_validation');	
 
-			$this->form_validation->set_rules('club-edit-name', 'Club name', 'required|max_length[50]');
+			$this->form_validation->set_rules('group-edit-name', 'Group name', 'required|max_length[50]');
 
 			if ($this->form_validation->run()){
 
-				$this->club->edit();
+				$this->group->edit();
 
 				redirect();
 			}
@@ -42,10 +42,11 @@
 				redirect();
 			}
 		}
-		
+			
+
 		public function delete(){
 
-			$this->club->delete();
+			$this->group->delete();
 
 			redirect();
 		}

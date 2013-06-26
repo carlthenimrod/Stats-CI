@@ -15,37 +15,46 @@ body{
 	border: 1px solid #000;
 	border-collapse: collapse;
 	border-spacing: 10px;
+	display: table;
 	font-size: 12px;
 	margin: 15px 0 0 0;
 	width: 100%;
 }
-.stats th, .stats td{
+.stats-row, .stats-row-head{
+	display: table-row;
+}
+.stats-row div, .stats-row-head div{
+	display: table-cell;
+}
+.stats-row-head div{
+	background-color: #041304;
+	border: 1px solid #000;
+	font-size: 14px;
+	font-weight: bold;
+	padding: 7px 20px;
+	text-align: center;
+}
+.stats-row div{
+	background-color: #045a04;
 	border: 1px solid #000;
 	padding: 7px 20px;
 	text-align: center;
 }
-.stats th.left, .stats td.left{
-	text-align: left;
-}
-.stats th{
-	background-color: #041304;
-	font-size: 14px;
-}
-.stats td{
-	background-color: #045a04;
-}
-.stats tr:nth-child(even) td{
+.stats-row:nth-child(even) div{
 	background-color: #023502;
 }
-.stats td a{
+.stats-row.left div{
+	text-align: left;
+}
+.stats div a{
 	color: #FF0;
 	font-weight: bold;
 	text-decoration: none;
 }
-.stats td a:hover{
+.stats div a:hover{
 	text-decoration: underline;
 }
-.stats td input{
+.stats div input{
 	background-color: #DDD;
 	border: 1px solid #FFF;
 	height: 23px;
@@ -69,28 +78,37 @@ body{
 	padding: 2px 0 4px 0;
 }
 .weekly{
-	border-collapse: collapse;
 	display: table;
+	margin: 15px 0 0 0;
 	width: 100%;
-}
-.weekly .row{
-	display: table-row;
 }
 .week{
 	background-color: #041304;
 	border: 1px solid #000;
-	display: table-cell;
+	float: left;
 	font-size: 12px;
-	padding: 0 0 10px 0;
-	width: 50%;
+	margin: 5px 0.5%;
+	padding: 0 0 210px 0;
+	position: relative;
+	width: 49%;
 	vertical-align: top;
 }
 .week h3{
 	background-color: #030;
+	line-height: 35px;
 	margin: 0 0 10px 0;
-	padding: 7px 10px;
+	padding: 0 10px;
 	text-align: center;
 	width: 100%;
+}
+.week h3 input{
+	background-color: #DDD;
+	border: 1px solid #FFF;
+	height: 23px;
+	line-height: 17px;
+	margin: 0;
+	padding: 3px;
+	width: 50%;
 }
 .week p{
 	margin: 0;
@@ -104,24 +122,50 @@ h2{
 h3{
 	font-style: italic;
 }
+.no-results{
+	background-color: #041304;
+	border: 1px solid #000;
+	border-collapse: collapse;
+	border-spacing: 10px;
+	font-size: 14px;
+	font-weight: bold;
+	margin: 50px 0 0 0;
+	padding: 7px 20px;
+	width: 100%;
+}
+p.event{
+	cursor: pointer;
+}
+p.event .group-id{
+	display: none;
+}
+p.event .event-id{
+	display: none;
+}
+p.event .date{
+	display: none;
+}
+p.event .loc{
+	display: none;
+}
+p.event .time{
+	display: none;
+}
 
 /*** Admin ***/
-.admin-club{
+.admin-edit{
 	background-color: #041304;
-	border-radius: 0 0 5px 5px;
 	float: right;
 	font-size: 12px;
-	padding: 7px 0 15px 0;
 	text-align: center;
 	vertical-align: top;
-	width: 50%;
 }
-.admin-club label{
+.admin-edit label{
 	line-height: 26px;
 	margin: 0 10px 0 0;
 	vertical-align: top;
 }
-.admin-club input{
+.admin-edit input{
 	background-color: #DDD;
 	border: 1px solid #FFF;
 	height: 26px;
@@ -131,7 +175,7 @@ h3{
 	vertical-align: top;
 	width: 50%;
 }
-.admin-club button{
+.admin-edit button{
 	border: 1px solid #999;
 	font-size: 12px;
 	height: 26px;
@@ -139,6 +183,88 @@ h3{
 	padding: 0 7px;
 	margin: 0 0 0 10px;
 	vertical-align: top;
+}
+.admin-club{
+	border-radius: 0 0 5px 5px;
+	padding: 7px 0 15px 0;
+	width: 50%;
+}
+.admin-group{
+	padding: 15px 0;
+	margin: 20px 0;
+	width: 100%;
+}
+a.admin-delete-group{
+	color: #FF0;
+	font-style: normal;
+	font-weight: bold;
+	line-height: 35px;
+	position: absolute;
+	right: 0;
+	text-align: center;
+	text-decoration: none;
+	width: 35px;
+}
+.admin-event-ctn{
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	width: 100%;
+}
+.admin-event-add{
+	cursor: pointer;
+	font-weight: bold;
+	margin: 0;
+	padding: 10px 20px 10px;
+	text-align: right;
+}
+.admin-event-add:hover{
+	color: #ff0;
+}
+.admin-event{
+	background: rgba(0, 0, 0, 0.6);
+	font-size: 11px;
+	overflow: hidden;
+	padding: 10px;
+	vertical-align: top;
+}
+.admin-event button{
+	border: 1px solid #999;
+	float: right;
+	font-size: 12px;
+	height: 26px;
+	line-height: 24px;
+	padding: 0 10px;
+	margin: 10px 18px 0 10px;
+	vertical-align: top;
+}
+.admin-event label{
+	padding: 0 5px 0 0;
+	text-align: right;
+}
+.admin-event label, .admin-event input, .admin-event select{
+	display: inline-block;
+	margin: 3px 0;
+}
+.admin-event select{
+	background-color: #DDD;
+	border: 1px solid #FFF;
+}
+.admin-event input{
+	background-color: #DDD;
+	border: 1px solid #FFF;
+	height: 23px;
+	line-height: 17px;
+	padding: 3px;
+}
+.admin-event div label, .admin-event div label{
+	width: 12%;
+}
+.admin-event div select, .admin-event div input{
+	width: 35%;
+}
+.admin-event .admin-event-row-3{
+	margin: 10px 0 0 0;
 }
 
 @media all and (max-width: 780px) and (min-width: 651px){
@@ -158,6 +284,7 @@ h3{
 	}
 	.week{
 		display: block;
+		margin: 5px 0;
 		width: 100%;
 	}
 }
