@@ -62,4 +62,11 @@
 				redirect();
 			}	
 		}
+
+		public function delete(){
+
+			$this->event->delete();
+
+			redirect();
+		}
 	}

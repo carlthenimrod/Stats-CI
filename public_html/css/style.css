@@ -88,7 +88,7 @@ body{
 	float: left;
 	font-size: 12px;
 	margin: 5px 0.5%;
-	padding: 0 0 210px 0;
+	padding: 0 0 30px 0;
 	position: relative;
 	width: 49%;
 	vertical-align: top;
@@ -133,9 +133,6 @@ h3{
 	padding: 7px 20px;
 	width: 100%;
 }
-p.event{
-	cursor: pointer;
-}
 p.event .group-id{
 	display: none;
 }
@@ -152,119 +149,45 @@ p.event .time{
 	display: none;
 }
 
-/*** Admin ***/
-.admin-edit{
-	background-color: #041304;
+/*** Login ***/
+.login{
 	float: right;
-	font-size: 12px;
-	text-align: center;
-	vertical-align: top;
-}
-.admin-edit label{
-	line-height: 26px;
-	margin: 0 10px 0 0;
-	vertical-align: top;
-}
-.admin-edit input{
-	background-color: #DDD;
-	border: 1px solid #FFF;
-	height: 26px;
-	line-height: 20px;
-	margin: 0;
-	padding: 3px;
+	font-size: 11px;
+	text-align: right;
 	vertical-align: top;
 	width: 50%;
 }
-.admin-edit button{
+.login label{
+	line-height: 20px;
+	margin: 0 10px 0 15px;
+	vertical-align: top;
+}
+.login input{
+	background-color: #DDD;
+	border: 1px solid #FFF;
+	height: 20px;
+	line-height: 17px;
+	margin: 0;
+	padding: 3px;
+	vertical-align: top;
+	width: 25%;
+}
+.login button{
 	border: 1px solid #999;
-	font-size: 12px;
-	height: 26px;
-	line-height: 24px;
+	font-size: 11px;
+	height: 20px;
+	line-height: 18px;
 	padding: 0 7px;
 	margin: 0 0 0 10px;
 	vertical-align: top;
 }
-.admin-club{
-	border-radius: 0 0 5px 5px;
-	padding: 7px 0 15px 0;
-	width: 50%;
-}
-.admin-group{
-	padding: 15px 0;
-	margin: 20px 0;
-	width: 100%;
-}
-a.admin-delete-group{
+.login a{
 	color: #FF0;
-	font-style: normal;
-	font-weight: bold;
-	line-height: 35px;
-	position: absolute;
-	right: 0;
-	text-align: center;
+	margin: 0 0 0 3px;
+	text-decoration: underline;
+}
+.login a:hover{
 	text-decoration: none;
-	width: 35px;
-}
-.admin-event-ctn{
-	position: absolute;
-	bottom: 0;
-	left: 0;
-	width: 100%;
-}
-.admin-event-add{
-	cursor: pointer;
-	font-weight: bold;
-	margin: 0;
-	padding: 10px 20px 10px;
-	text-align: right;
-}
-.admin-event-add:hover{
-	color: #ff0;
-}
-.admin-event{
-	background: rgba(0, 0, 0, 0.6);
-	font-size: 11px;
-	overflow: hidden;
-	padding: 10px;
-	vertical-align: top;
-}
-.admin-event button{
-	border: 1px solid #999;
-	float: right;
-	font-size: 12px;
-	height: 26px;
-	line-height: 24px;
-	padding: 0 10px;
-	margin: 10px 18px 0 10px;
-	vertical-align: top;
-}
-.admin-event label{
-	padding: 0 5px 0 0;
-	text-align: right;
-}
-.admin-event label, .admin-event input, .admin-event select{
-	display: inline-block;
-	margin: 3px 0;
-}
-.admin-event select{
-	background-color: #DDD;
-	border: 1px solid #FFF;
-}
-.admin-event input{
-	background-color: #DDD;
-	border: 1px solid #FFF;
-	height: 23px;
-	line-height: 17px;
-	padding: 3px;
-}
-.admin-event div label, .admin-event div label{
-	width: 12%;
-}
-.admin-event div select, .admin-event div input{
-	width: 35%;
-}
-.admin-event .admin-event-row-3{
-	margin: 10px 0 0 0;
 }
 
 @media all and (max-width: 780px) and (min-width: 651px){
