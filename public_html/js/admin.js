@@ -98,7 +98,7 @@ $(function(){
 		}
 	});
 
-	$('p.event').on('click', function(){
+	$('.event').on('click', function(){
 
 		var adminCtn, 
 			hScore, 

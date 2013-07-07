@@ -162,16 +162,28 @@
 
 		endforeach;
 
+		usort($arr, "sort_group_id");
 		usort($arr, "sort_date");
+
 		$arr = sort_like_date($arr);
 
 		return $arr;
 	};
 
 	function sort_date($a, $b){
-		if($a->group_id != $b->group_id){
+		if($a->date > $b->date){
+
+			if($a->group_id != $b->group_id) return 0;
+
+			return 1;
+		}
+		elseif($a->date == $b->date){
 
 			return 0;
+		}
+		else{
+
+			return -1;
 		}
 
 		return $a->date == $b->date ? 0 : ( $a->date > $b->date ) ? 1 : -1;
@@ -179,6 +191,10 @@
 
 	function sort_loc($a, $b){
 		return $a->loc == $b->loc ? 0 : ( $a->loc > $b->loc ) ? 1 : -1;
+	};
+
+	function sort_group_id($a, $b){
+		return $a->group_id == $b->group_id ? 0 : ( $a->group_id > $b->group_id ) ? 1 : -1;
 	};
 
 	function sort_like_date($arr){
@@ -270,4 +286,66 @@
 
 			return false;
 		}
+	};
+
+	function find_recent($clubs, $events){
+
+		$arr = array();
+		$group_id = NULL;
+
+		if(!$events) return false;
+
+		foreach($events as $event) :
+
+			if(is_null($group_id) && !is_null($event->home_s) && !is_null($event->vist_s)) $group_id = $event->group_id;
+
+			if($event->group_id != $group_id && !is_null($group_id)) break;
+
+			if(!is_null($event->home_s) && !is_null($event->vist_s)){
+
+				$obj = new stdClass();
+				$obj->id = $event->id;
+				$obj->group_id = $event->group_id;
+				$obj->h_club = find_club($event->home_id, $clubs);
+				$obj->v_club = find_club($event->vist_id, $clubs);
+				$obj->h_score = $event->home_s;
+				$obj->v_score = $event->vist_s;
+
+				array_push($arr, $obj);
+			}
+
+		endforeach;
+
+		return $arr;
+	};
+
+	function find_upcoming($clubs, $events){
+
+		$arr = array();
+		$group_id = NULL;
+
+		if(!$events) return false;
+
+		foreach($events as $event) :
+
+			if(is_null($group_id) && is_null($event->home_s) && is_null($event->vist_s)) $group_id = $event->group_id;
+
+			if($event->group_id != $group_id && !is_null($group_id)) break;
+
+			if(is_null($event->home_s) && is_null($event->vist_s)){
+
+				$obj = new stdClass();
+				$obj->id = $event->id;
+				$obj->group_id = $event->group_id;
+				$obj->h_club = find_club($event->home_id, $clubs);
+				$obj->v_club = find_club($event->vist_id, $clubs);
+				$obj->date = $event->date;
+				$obj->time = $event->time;
+
+				array_push($arr, $obj);
+			}
+
+		endforeach;
+
+		return $arr;
 	};

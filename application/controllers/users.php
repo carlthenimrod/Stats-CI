@@ -3,25 +3,36 @@
 
 		function login(){
 
-			$this->load->model('user');
+			if($this->session->userdata('logged_in')) redirect();
 
-			if($this->user->validate()){
+			if($this->input->post()){
 
-				$data = array(
+				$this->load->model('user');
 
-					'email' => $this->input->post('email'),
-					'logged_in' => true
-				);
+				if($this->user->validate()){
 
-				$this->session->set_userdata($data);
+					$data = array(
 
-				redirect();
+						'email' => $this->input->post('email'),
+						'logged_in' => true
+					);
+
+					$this->session->set_userdata($data);
+
+					redirect();
+				}
+				else{
+
+					$this->session->set_flashdata('errors', 'Login Failed! Check your email/password.');
+
+					redirect('login');
+				}
 			}
 			else{
 
-				$this->session->set_flashdata('errors', 'Login Failed! Check your email/password.');
-
-				redirect();
+				$this->load->view('layout/header');
+				$this->load->view('login');
+				$this->load->view('layout/footer');
 			}
 		}
 

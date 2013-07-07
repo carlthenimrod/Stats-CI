@@ -1,7 +1,7 @@
 .week{
 	padding: 0 0 230px 0;
 }
-p.event:hover{
+.event:hover{
 	color: #FF0;
 	cursor: pointer;
 }
