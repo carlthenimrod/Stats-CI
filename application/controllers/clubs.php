@@ -8,17 +8,19 @@
 
 			$this->form_validation->set_rules('club_name', 'Club name', 'required|max_length[50]');
 
+			$division_id = $this->input->post('division_id');
+
 			if ($this->form_validation->run()){
 
 				$this->club->add();
 
-				redirect();
+				redirect('/' . $division_id);
 			}
 			else{
 
 				$this->session->set_flashdata('errors', validation_errors());
 
-				redirect();
+				redirect('/' . $division_id);
 			}		
 		}
 
@@ -29,17 +31,19 @@
 
 			$this->form_validation->set_rules('club-edit-name', 'Club name', 'required|max_length[50]');
 
+			$division_id = $this->input->post('division_id');
+
 			if ($this->form_validation->run()){
 
 				$this->club->edit();
 
-				redirect();
+				redirect('/' . $division_id);
 			}
 			else{
 
 				$this->session->set_flashdata('errors', validation_errors());
 
-				redirect();
+				redirect('/' . $division_id);
 			}
 		}
 		
@@ -47,6 +51,8 @@
 
 			$this->club->delete();
 
-			redirect();
+			$division_id = $this->input->get('division_id');
+
+			redirect('/' . $division_id);
 		}
 	}

@@ -1,9 +1,9 @@
 <?php
 	class Group extends CI_Model{
 
-		public function get_all(){
+		public function get_all($id = NULL){
 
-			$query = $this->db->get('groups');
+			$query = $this->db->get_where('groups', array('division_id' => $id));
 
 			if ($query->num_rows() > 0) {
 
@@ -18,9 +18,11 @@
 		public function add(){
 
 			$name = $this->input->post('group_name');
+			$division_id = $this->input->post('division_id');
 
 			$data = array(
 
+				'division_id' => $division_id,
 				'name' => $name
 			);
 
@@ -34,7 +36,7 @@
 
 			$this->db->where('id', $id);
 			$this->db->update('groups', array('id' => $id, 'name' => $name )); 
-		}		
+		}
 
 		public function delete(){
 

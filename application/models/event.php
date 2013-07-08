@@ -1,9 +1,9 @@
 <?php
 	class Event extends CI_Model{
 
-		public function get_all(){
+		public function get_all($id = NULL){
 
-			$query = $this->db->get('events');
+			$query = $this->db->get_where('events', array('division_id' => $id));
 
 			if ($query->num_rows() > 0) {
 
@@ -19,6 +19,7 @@
 
 			$home_s = $this->input->post('h_score');
 			$vist_s = $this->input->post('v_score');
+			$division_id = $this->input->post('division_id');
 
 			if(!is_numeric($home_s) || !is_numeric($vist_s)){
 
@@ -28,6 +29,7 @@
 
 			$data = array(
 
+				'division_id' => $division_id,
 				'group_id' => $this->input->post('group_id'),
 				'home_id' => $this->input->post('h_team'),
 				'vist_id' => $this->input->post('v_team'),

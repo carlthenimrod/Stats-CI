@@ -130,9 +130,10 @@ body{
 	margin: 0;
 	padding: 5px 10px;
 }
-h2{
+h2.division{
 	color: #b7c52f;
 	font-size: 16px;
+	line-height: 22px;
 	margin: 15px 0 0 0;
 }
 h3{
@@ -182,7 +183,7 @@ h3{
 	font-size: 11px;
 	text-align: right;
 	vertical-align: top;
-	width: 50%;
+	width: 30%;
 }
 .login label{
 	line-height: 20px;

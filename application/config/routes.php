@@ -39,6 +39,7 @@
 */
 
 $route['default_controller'] = "stats";
+$route['(:num)'] = "stats/index/$1";
 $route['404_override'] = '';
 $route['login'] = 'users/login';
 $route['logout'] = 'users/logout';

@@ -6,10 +6,35 @@
 
 <?php if($errors) echo $errors; ?>
 
-<?php if($clubs) : ?>
+<?php if($division) : ?>
+	<h2 id="<?php echo $division->id; ?>" class="division">
+		<?php echo $division->name; ?>:
 
-	<h2>Men Red:</h2>
+		<?php if($this->session->userdata('logged_in')) : ?>
+			<a href="<?php echo base_url('divisions/delete'); ?>?id=<?php echo $division->id; ?>" title="Delete" class="admin-delete-division">Delete X</a>
 
+			<form id="admin-add-division" method="post" action="divisions/add">
+				<label for="admin-add-division-name">Division Name:</label>
+				<input type="text" name="division_name" id="admin-add-division-name" />
+				<input type="hidden" name="division_id" value="<?php echo $division->id; ?>" />
+
+				<button>Add New</button>
+			</form>
+		<?php endif; ?>
+	</h2>
+<?php else : ?>
+	<h2 class="division">Currenty no divisions...
+
+		<?php if($this->session->userdata('logged_in')) : ?>
+			<form id="admin-add-division" method="post" action="divisions/add">
+				<label for="admin-add-division-name">Division Name:</label>
+				<input type="text" name="division_name" id="admin-add-division-name" />
+				<input type="hidden" name="division_id" value="" />
+
+				<button>Add New</button>
+			</form>
+		<?php endif; ?>
+	</h2>
 <?php endif; ?>
 
 <?php if($clubs) : ?>		
@@ -43,7 +68,7 @@
 				<div class="extra"><?php echo $club->gd; ?></a></div>
 				<?php if($this->session->userdata('logged_in')) : ?>
 					<div class="admin-delete-team">
-						<a href="<?php echo base_url('clubs/delete'); ?>?id=<?php echo $club->id; ?>" title="Delete">x</a>
+						<a href="<?php echo base_url('clubs/delete'); ?>?id=<?php echo $club->id; ?>&division_id=<?php echo $division->id; ?>" title="Delete">x</a>
 					</div>
 				<?php endif; ?>
 		    </div>
@@ -81,13 +106,14 @@
 	</div><!-- .row -->
 <?php endif; ?>
 
-<?php if($this->session->userdata('logged_in')) : ?>
+<?php if($this->session->userdata('logged_in') && ($division)) : ?>
 	<div class="admin-edit admin-club">
 		<form method="POST" action="<?php echo base_url('clubs/add'); ?>">
 			<label for="admin-add-club">Enter Club Name:</label>
 
 			<input type="text" id="admin-add-club" name="club_name" />
 
+			<input type="hidden" name="division_id" value="<?php if($division) echo $division->id; ?>" />
 			<button name="add_club">Add Club</button>
 		</form>
 	</div><!-- .admin-edit -->
@@ -103,7 +129,7 @@
 
 			<div class="week">
 				<?php if($this->session->userdata('logged_in')) : ?>
-					<a href="<?php echo base_url('groups/delete'); ?>?id=<?php echo $group->id; ?>" title="Delete" class="admin-delete-group">x</a>
+					<a href="<?php echo base_url('groups/delete'); ?>?id=<?php echo $group->id; ?>&division_id=<?php echo $division->id; ?>" title="Delete" class="admin-delete-group">x</a>
 				<?php endif; ?>
 				
 				<h3 id="<?php echo $group->id; ?>"><?php echo $group->name; ?></h3>
@@ -131,7 +157,7 @@
 								?>
 
 								<?php if($this->session->userdata('logged_in')) : ?>
-									<a href="<?php echo base_url('events/delete'); ?>?id=<?php echo $event->id; ?>" title="Delete" class="admin-delete-event">x</a>
+									<a href="<?php echo base_url('events/delete'); ?>?id=<?php echo $event->id; ?>&division_id=<?php echo $division->id; ?>" title="Delete" class="admin-delete-event">x</a>
 								<?php endif; ?>
 
 								<div class="event">
@@ -206,7 +232,8 @@
 										<input type="text" id="admin-event-time" name="time" />
 									</div><!-- .admin-event-row-4 -->
 
-									<input type="hidden" id="admin-event-group-id" name="group_id" value="<?php echo $group->id; ?>"/>
+									<input type="hidden" name="division_id" value="<?php echo $division->id; ?>" />
+									<input type="hidden" id="admin-event-group-id" name="group_id" value="<?php echo $group->id; ?>" />
 									<input type="hidden" id="admin-event-event-id" name="event_id" value="0"/>
 
 									<button>Save</button>
@@ -225,12 +252,14 @@
 	</div><!-- .row -->
 <?php endif; ?>
 
-<?php if($this->session->userdata('logged_in')) : ?>
+<?php if($this->session->userdata('logged_in')  && ($division)) : ?>
 	<div class="admin-edit admin-group">
 		<form method="POST" action="<?php echo base_url('groups/add'); ?>">
 			<label for="admin-add-group">Enter Group Name:</label>
 
 			<input type="text" id="admin-add-group" name="group_name" />
+
+			<input type="hidden" name="division_id" value="<?php if($division) echo $division->id; ?>" />
 
 			<button name="add_group">Add Group</button>
 		</form>

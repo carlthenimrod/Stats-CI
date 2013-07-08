@@ -4,9 +4,11 @@
 		public function add(){
 
 			$name = $this->input->post('club_name');
+			$division_id = $this->input->post('division_id');
 
 			$data = array(
 
+				'division_id' => $division_id,
 				'name' => $name
 			);
 
@@ -31,9 +33,9 @@
 			$this->db->delete('events', array('vist_id' => $id)); 
 		}
 
-		public function get_all(){
-
-			$query = $this->db->get('clubs');
+		public function get_all($id = NULL){
+			
+			$query = $this->db->get_where('clubs', array('division_id' => $id));
 
 			if($query->num_rows() > 0) {
 

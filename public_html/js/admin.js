@@ -36,7 +36,7 @@ $(function(){
 	// *** Events ***
 	$('.stats .stats-row').on('dblclick', function(){
 
-		var clubName, id, form, nameCol;
+		var clubName, id, divId, form, nameCol;
 
 		nameCol = $(this).find('#club-name');
 
@@ -50,6 +50,7 @@ $(function(){
 			//close any open inputs
 			closeOpenClub();
 
+			divId = $('h2.division').attr('id');
 			id = $(this).attr('id');
 
 			//store club name
@@ -59,6 +60,7 @@ $(function(){
 			form = '<form method="post" action="clubs/edit?id='+ id +'">';
 			form +=	'<input type="text" value="' + clubName + '" name="club-edit-name" />';
 			form +=	'<input type="hidden" value="' + id + '" name="club-edit-id" />';
+			form +=	'<input type="hidden" value="' + divId + '" name="division_id" />';
 			form +=	'</form>';
 
 			//replace with input box containing club name
@@ -68,7 +70,7 @@ $(function(){
 
 	$('.week h3').on('dblclick', function(){
 
-		var groupName, id, form, h3;
+		var groupName, id, divId, form, h3;
 
 		h3 = $(this);
 
@@ -83,6 +85,7 @@ $(function(){
 			closeOpenGroup();
 
 			id = h3.attr('id');
+			divId = $('h2.division').attr('id');
 
 			//store group name
 			groupName = h3.html();
@@ -91,6 +94,7 @@ $(function(){
 			form = '<form method="post" action="groups/edit?id='+ id +'">';
 			form +=	'<input type="text" value="' + groupName + '" name="group-edit-name" />';
 			form +=	'<input type="hidden" value="' + id + '" name="group-edit-id" />';
+			form +=	'<input type="hidden" value="' + divId + '" name="division_id" />';
 			form +=	'</form>';
 
 			//replace with input box containing group name

@@ -2,6 +2,8 @@
 	class events extends CI_Controller{
 
 		public function add(){
+			
+			$division_id = $this->input->post('division_id');
 
 			$this->load->helper('form');
 			$this->load->library('form_validation');	
@@ -22,17 +24,19 @@
 
 				$this->event->add();
 
-				redirect();
+				redirect('/' . $division_id);
 			}
 			else{
 
 				$this->session->set_flashdata('errors', validation_errors());
 
-				redirect();
+				redirect('/' . $division_id);
 			}	
 		}
 
 		public function edit(){
+			
+			$division_id = $this->input->post('division_id');
 
 			$this->load->helper('form');
 			$this->load->library('form_validation');	
@@ -53,13 +57,13 @@
 
 				$this->event->edit();
 
-				redirect();
+				redirect('/' . $division_id);
 			}
 			else{
 
 				$this->session->set_flashdata('errors', validation_errors());
 
-				redirect();
+				redirect('/' . $division_id);
 			}	
 		}
 
@@ -67,6 +71,8 @@
 
 			$this->event->delete();
 
-			redirect();
+			$division_id = $this->input->get('division_id');
+
+			redirect('/' . $division_id);
 		}
 	}

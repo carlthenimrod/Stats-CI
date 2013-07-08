@@ -135,3 +135,41 @@ a.admin-delete-event{
 .admin-event .admin-event-row-3{
 	margin: 10px 0 0 0;
 }
+a.admin-delete-division{
+	color: #FF0;
+	font-size: 12px;
+	font-weight: bold;
+	line-height: 22px;
+	padding: 0 0 0 40px;
+	text-decoration: none;
+}
+a.admin-delete-division:hover{
+	text-decoration: underline;
+}
+h2.division form{
+	display: inline;
+}
+h2.division label{
+	color: #FF0;
+	font-size: 12px;
+	font-weight: bold;
+	line-height: 22px;
+	padding: 0 10px 0 100px;
+}
+h2.division input[type="text"]{
+	background-color: #DDD;
+	border: 1px solid #FFF;
+	height: 23px;
+	line-height: 17px;
+	padding: 3px;
+}
+h2.division button{
+	border: 1px solid #fff;
+	display: inline;
+	font-size: 11px;
+	height: 22px;
+	line-height: 20px;
+	margin: 0 0 0 10px;
+	padding: 0 10px;
+	vertical-align: top;
+}

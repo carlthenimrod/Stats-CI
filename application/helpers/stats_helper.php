@@ -59,21 +59,24 @@
 
 				if($club->id == $event->home_id){
 
-					if($event->home_s > $event->vist_s){
+					if($event->vist_s && $event->home_s){
 
-						++$stats->w;
+						if($event->home_s > $event->vist_s){
 
-						$stats->pts += 3;
-					}
-					elseif($event->home_s < $event->vist_s){
+							++$stats->w;
 
-						++$stats->l;
-					}
-					elseif($event->home_s == $event->vist_s){
+							$stats->pts += 3;
+						}
+						elseif($event->home_s < $event->vist_s){
 
-						++$stats->d;
+							++$stats->l;
+						}
+						elseif($event->home_s == $event->vist_s){
 
-						++$stats->pts;
+							++$stats->d;
+
+							++$stats->pts;
+						}
 					}
 
 					$stats->gf += $event->home_s;
@@ -83,21 +86,25 @@
 				}
 				elseif($club->id == $event->vist_id){
 
-					if($event->vist_s > $event->home_s){
+					if($event->vist_s && $event->home_s){
 
-						++$stats->w;
+						if($event->vist_s > $event->home_s){
 
-						$stats->pts += 3;
-					}
-					elseif($event->vist_s < $event->home_s){
+							++$stats->w;
 
-						++$stats->l;
-					}
-					elseif($event->vist_s == $event->home_s){
+							$stats->pts += 3;
+						}
+						elseif($event->vist_s < $event->home_s){
 
-						++$stats->d;
+							++$stats->l;
+						}
+						elseif($event->vist_s == $event->home_s){
 
-						++$stats->pts;
+							++$stats->d;
+
+							++$stats->pts;
+						}
+
 					}
 
 					$stats->gf += $event->vist_s;
