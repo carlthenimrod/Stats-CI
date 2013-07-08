@@ -1,4 +1,4 @@
-## Stats-CI - Stats application built on the CodeIgniter framework
+### Stats-CI - Stats application built on the CodeIgniter framework
 
 ### Instructions:
 1. Extract the "Stats-CI.zip" file. 
@@ -17,6 +17,8 @@ You can move the system and application folder around if you choose to do so, ho
 5. All of the HTML layout files are located: 
 "application/views/layout"
 These files include a 'header.php', 'index.php', and 'footer.php'. You can edit these files to change the layout design. If possible I would avoid editing the index file unless necessary.
+
+6. FTP the "application", "system", and "public_html" files to your web server.
 
 
 * * *
