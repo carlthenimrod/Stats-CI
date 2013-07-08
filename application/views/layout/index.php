@@ -13,10 +13,9 @@
 		<?php if($this->session->userdata('logged_in')) : ?>
 			<a href="<?php echo base_url('divisions/delete'); ?>?id=<?php echo $division->id; ?>" title="Delete" class="admin-delete-division">Delete X</a>
 
-			<form id="admin-add-division" method="post" action="divisions/add">
+			<form id="admin-add-division" method="post" action="<?php echo base_url('divisions/add'); ?>">
 				<label for="admin-add-division-name">Division Name:</label>
 				<input type="text" name="division_name" id="admin-add-division-name" />
-				<input type="hidden" name="division_id" value="<?php echo $division->id; ?>" />
 
 				<button>Add New</button>
 			</form>
@@ -26,10 +25,9 @@
 	<h2 class="division">Currenty no divisions...
 
 		<?php if($this->session->userdata('logged_in')) : ?>
-			<form id="admin-add-division" method="post" action="divisions/add">
+			<form id="admin-add-division" method="post" action="<?php echo base_url('divisions/add'); ?>">
 				<label for="admin-add-division-name">Division Name:</label>
 				<input type="text" name="division_name" id="admin-add-division-name" />
-				<input type="hidden" name="division_id" value="" />
 
 				<button>Add New</button>
 			</form>

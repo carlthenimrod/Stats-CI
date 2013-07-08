@@ -1,11 +1,13 @@
 <?php
 	class stats extends CI_Controller{
 
-		public function index($id = NULL){
+		public function index($slug = NULL){
 
-			if($id){
+			$this->session->set_flashdata('redirect', $this->uri->uri_string());
 
-				$results = $this->division->get($id);
+			if($slug){
+
+				$results = $this->division->get($slug);
 
 				if(!$results){
 

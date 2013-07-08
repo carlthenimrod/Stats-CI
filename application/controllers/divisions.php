@@ -6,22 +6,26 @@
 			$this->load->helper('form');
 			$this->load->library('form_validation');	
 
-			$this->form_validation->set_rules('division_name', 'Division name', 'required|max_length[50]');
+			$this->form_validation->set_rules('division_name', 'Division name', 'required|max_length[50]|is_unique[divisions.name]');
 
-			$division_id = $this->input->post('division_id');
+			$slug = to_slug($this->input->post('division_name'));
+			
+			$_POST['slug'] = $slug;
+
+			$this->form_validation->set_rules('slug', 'Slug', 'required|max_length[50]|is_unique[divisions.slug]');
 
 			if ($this->form_validation->run()){
 
-				$id = $this->division->add();
+				$slug = $this->division->add();
 
-				redirect('/' . $id);
+				redirect('/stats/' . $slug);
 			}
 			else{
 
 				$this->session->set_flashdata('errors', validation_errors());
 
-				redirect('/' . $division_id);
-			}	
+				redirect($this->session->flashdata('redirect'));
+			}
 		}
 
 		function delete(){

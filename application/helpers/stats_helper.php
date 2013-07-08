@@ -144,7 +144,7 @@
 		}
 
 		return ($a->pts > $b->pts) ? -1 : 1;
-	};
+	}
 
 	function sort_events($clubs, $events){
 
@@ -175,7 +175,7 @@
 		$arr = sort_like_date($arr);
 
 		return $arr;
-	};
+	}
 
 	function sort_date($a, $b){
 		if($a->date > $b->date){
@@ -194,15 +194,15 @@
 		}
 
 		return $a->date == $b->date ? 0 : ( $a->date > $b->date ) ? 1 : -1;
-	};
+	}
 
 	function sort_loc($a, $b){
 		return $a->loc == $b->loc ? 0 : ( $a->loc > $b->loc ) ? 1 : -1;
-	};
+	}
 
 	function sort_group_id($a, $b){
 		return $a->group_id == $b->group_id ? 0 : ( $a->group_id > $b->group_id ) ? 1 : -1;
-	};
+	}
 
 	function sort_like_date($arr){
 
@@ -254,7 +254,7 @@
 		endforeach;
 
 		return $new_arr;
-	};
+	}
 
 	function find_club($club_id, $clubs){
 
@@ -265,7 +265,7 @@
 		endforeach;
 
 		return false;
-	};
+	}
 
 	function find_group_id($events, $group_id){
 
@@ -293,7 +293,7 @@
 
 			return false;
 		}
-	};
+	}
 
 	function find_recent($clubs, $events){
 
@@ -324,7 +324,7 @@
 		endforeach;
 
 		return $arr;
-	};
+	}
 
 	function find_upcoming($clubs, $events){
 
@@ -355,4 +355,9 @@
 		endforeach;
 
 		return $arr;
-	};
+	}
+
+	function to_slug($string){
+    
+    	return strtolower(trim(preg_replace('/[^A-Za-z0-9-]+/', '-', $string)));
+	}

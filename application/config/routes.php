@@ -39,10 +39,13 @@
 */
 
 $route['default_controller'] = "stats";
-$route['(:num)'] = "stats/index/$1";
+$route['stats/(:any)'] = "stats/index/$1";
 $route['404_override'] = '';
 $route['login'] = 'users/login';
 $route['logout'] = 'users/logout';
+
+$route['stats/clubs/edit'] = "clubs/edit";
+$route['stats/events/add'] = "events/add";
 
 
 /* End of file routes.php */

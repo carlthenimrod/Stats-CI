@@ -1,9 +1,9 @@
 <?php
 	class division extends CI_Model{
 
-		public function get($id){				
+		public function get($slug){
 			
-			$query = $this->db->get_where('divisions', array('id' => $id), 1);
+			$query = $this->db->get_where('divisions', array('slug' => $slug), 1);
 
 			if($query->num_rows() > 0){
 
@@ -32,15 +32,17 @@
 		public function add(){
 
 			$name = $this->input->post('division_name');
+			$slug = $this->input->post('slug');
 
 			$data = array(
 
-				'name' => $name
+				'name' => $name,
+				'slug' => $slug
 			);
 
 			$this->db->insert('divisions', $data);
 
-			return $this->db->insert_id();
+			return $slug;
 		}
 
 		public function delete(){
