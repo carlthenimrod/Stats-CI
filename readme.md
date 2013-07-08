@@ -1,7 +1,6 @@
-# Stats-CI - Stats application built on the CodeIgniter framework
+## Stats-CI - Stats application built on the CodeIgniter framework
 
-## Instructions:
-* * *
+### Instructions:
 1. Extract the "Stats-CI.zip" file. 
 
 2. First step is to set up  a database and import the "schema.sql" file. This file contains the basic table structure and inserts a row into the user column that can access the admin control panel. 
@@ -19,6 +18,8 @@ You can move the system and application folder around if you choose to do so, ho
 "application/views/layout"
 These files include a 'header.php', 'index.php', and 'footer.php'. You can edit these files to change the layout design. If possible I would avoid editing the index file unless necessary.
 
+
+* * *
 For more information regarding CodeIgniter you can view the user guide:
 
 http://ellislab.com/codeigniter/user-guide/
